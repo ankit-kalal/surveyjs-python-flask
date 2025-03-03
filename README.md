@@ -19,7 +19,7 @@ cd surveyjs-flask
 # python -m venv .venv # create venv in working folder if needed - windows
 # python3 -m venv .venv # macos/linux
 pip install -r requirements.txt
-
+python ./app.py
 ```
 
 Open http://localhost:5000 in your web browser.
