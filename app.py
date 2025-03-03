@@ -69,13 +69,13 @@ def get_results():
     post_id = request.args.get('postId')
     return jsonify(db.get_results(post_id))
 
-@app.route('/', defaults={'path': 'index.html'})
-@app.route('/about', defaults={'path': 'index.html'})
+@app.route('/about')
 @app.route('/run/<path:path>')
 @app.route('/edit/<path:path>')
 @app.route('/results/<path:path>')
+@app.route('/', defaults={'path': 'index.html'})
 def serve_static(path):
-    return send_from_directory('public', path)
+    return send_from_directory('public', 'index.html')
 
 if __name__ == '__main__':
     if not os.path.exists('flask_session'):
