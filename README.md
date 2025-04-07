@@ -1,6 +1,6 @@
-# SurveyJS + Python/Flask Demo Example
+# SurveyJS + Python Demo Example
 
-This demo shows how to integrate [SurveyJS](https://surveyjs.io/) components with a Python/Flask backend.
+This demo shows how to integrate [SurveyJS](https://surveyjs.io/) components with a Python backend on the example of the [Flask](https://flask.palletsprojects.com/en/stable/) framework.
 
 [View Demo Online](https://surveyjs-flask.azurewebsites.net/)
 
@@ -15,9 +15,6 @@ Install [NodeJS](https://nodejs.org/) on your machine. After that, run the follo
 ```bash
 git clone https://github.com/surveyjs/surveyjs-flask.git
 cd surveyjs-flask
-
-# python -m venv .venv # create venv in working folder if needed - windows
-# python3 -m venv .venv # macos/linux
 pip install -r requirements.txt
 python ./app.py
 ```
