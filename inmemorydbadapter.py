@@ -5,7 +5,11 @@ from demo_surveys import demo_data
 class InMemoryDBAdapter:
     def __init__(self, session):
         self.session = session
-        self.current_id = len(demo_data["surveys"]) + 1
+        surveys = self.get_table("surveys")
+        if(len(surveys) == 0):
+            for survey in demo_data["surveys"]:
+                surveys.append(survey)
+        self.current_id = len(surveys) + 1
 
     def get_table(self, table_name):
         if table_name not in self.session:
@@ -30,7 +34,7 @@ class InMemoryDBAdapter:
             "name": new_name,
             "json": "{}"
         }
-        self.current_id += 1
+        self.current_id = self.current_id + 1
         table.append(new_obj)
         return new_obj
 
