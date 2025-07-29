@@ -1,6 +1,6 @@
 # SurveyJS + FastAPI Demo Example
 
-This demo shows how to integrate SurveyJS components with a Python backend using the FastAPI framework.
+This demo shows how to integrate SurveyJS components with a Python backend using the FastAPI framework with SQLite database.
 
 View Demo Online
 
@@ -24,6 +24,14 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 Open http://localhost:8000 in your web browser.
 
+## Database
+
+The application uses SQLite database (`surveyjs.db`) for persistent data storage:
+
+- **Automatic Initialization**: Database and tables are created automatically on first run
+- **Demo Data**: Pre-populated with sample surveys and results
+- **Persistent Storage**: Data persists between application restarts
+
 ## API Documentation
 
 FastAPI automatically generates interactive API documentation:
@@ -37,4 +45,4 @@ The client-side part is the `surveyjs-react-client` React application. The curre
 
 ## About
 
-This demo shows how to integrate SurveyJS components with a Python backend using the FastAPI framework.
+This demo shows how to integrate SurveyJS components with a Python backend using the FastAPI framework with SQLite database.

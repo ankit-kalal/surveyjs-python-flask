@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, Dict, Any, List
 import uvicorn
-from inmemorydbadapter import InMemoryDBAdapter
+from sqlitedbadapter import SQLiteDBAdapter
 
 app = FastAPI(title="SurveyJS FastAPI Service", version="1.0.0")
 
@@ -21,64 +21,53 @@ app.add_middleware(
 # Mount static files
 app.mount("/static", StaticFiles(directory="public/static"), name="static")
 
-# In-memory session storage (simplified version)
-session_storage = {}
-
-def get_db_adapter():
-    return InMemoryDBAdapter(session_storage)
+# SQLite database adapter
+db_adapter = SQLiteDBAdapter("surveyjs.db")
 
 API_BASE_ADDRESS = "/api"
 
 @app.get(f"{API_BASE_ADDRESS}/getActive")
 async def get_active():
-    db = get_db_adapter()
-    return db.get_surveys()
+    return db_adapter.get_surveys()
 
 @app.get(f"{API_BASE_ADDRESS}/getSurvey")
 async def get_survey(surveyId: str):
-    db = get_db_adapter()
-    survey = db.get_survey(surveyId)
+    survey = db_adapter.get_survey(surveyId)
     if not survey:
         raise HTTPException(status_code=404, detail="Survey not found")
     return survey
 
 @app.get(f"{API_BASE_ADDRESS}/changeName")
 async def change_name(id: str, name: str):
-    db = get_db_adapter()
-    survey = db.change_name(id, name)
+    survey = db_adapter.change_name(id, name)
     if not survey:
         raise HTTPException(status_code=404, detail="Survey not found")
     return survey
 
 @app.get(f"{API_BASE_ADDRESS}/create")
 async def create(name: Optional[str] = None):
-    db = get_db_adapter()
-    return db.add_survey(name)
+    return db_adapter.add_survey(name)
 
 @app.post(f"{API_BASE_ADDRESS}/changeJson")
 async def change_json(request: Request):
     data = await request.json()
-    db = get_db_adapter()
-    return db.store_survey(data.get("id"), None, data.get("json"))
+    return db_adapter.store_survey(data.get("id"), None, data.get("json"))
 
 @app.post(f"{API_BASE_ADDRESS}/post")
 async def post_results(request: Request):
     data = await request.json()
-    db = get_db_adapter()
-    return db.post_results(data.get("postId"), data.get("surveyResult"))
+    return db_adapter.post_results(data.get("postId"), data.get("surveyResult"))
 
 @app.get(f"{API_BASE_ADDRESS}/delete")
 async def delete(id: str):
-    db = get_db_adapter()
-    survey = db.delete_survey(id)
+    survey = db_adapter.delete_survey(id)
     if not survey:
         raise HTTPException(status_code=404, detail="Survey not found")
     return {"id": id}
 
 @app.get(f"{API_BASE_ADDRESS}/results")
 async def get_results(postId: str):
-    db = get_db_adapter()
-    results = db.get_results(postId)
+    results = db_adapter.get_results(postId)
     if not results:
         raise HTTPException(status_code=404, detail="Results not found")
     return results
