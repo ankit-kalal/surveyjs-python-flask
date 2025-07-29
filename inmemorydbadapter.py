@@ -3,8 +3,8 @@ import copy
 from demo_surveys import demo_data
 
 class InMemoryDBAdapter:
-    def __init__(self, session):
-        self.session = session
+    def __init__(self, session_storage):
+        self.session_storage = session_storage
         surveys = self.get_table("surveys")
         if(len(surveys) == 0):
             for survey in demo_data["surveys"]:
@@ -12,9 +12,9 @@ class InMemoryDBAdapter:
         self.current_id = len(surveys) + 1
 
     def get_table(self, table_name):
-        if table_name not in self.session:
-            self.session[table_name] = []
-        return self.session[table_name]
+        if table_name not in self.session_storage:
+            self.session_storage[table_name] = []
+        return self.session_storage[table_name]
 
     def get_objects_from_storage(self, table_name):
         table = self.get_table(table_name)
