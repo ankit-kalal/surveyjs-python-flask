@@ -63,14 +63,14 @@ FastAPI automatically generates interactive API documentation:
 ```
 ├── main.py                 # FastAPI application
 ├── sqlitedbadapter.py      # SQLite database adapter
-├── inmemorydbadapter.py    # In-memory database adapter (legacy)
 ├── demo_surveys.py         # Demo survey data
 ├── requirements.txt         # Python dependencies
 ├── surveyjs.db             # SQLite database file (created automatically)
 ├── public/                 # Frontend static files
 │   ├── index.html         # Main HTML file
 │   └── static/            # Static assets
-└── README_FASTAPI.md      # This file
+├── README.md              # Main README
+└── README_FASTAPI.md      # Detailed FastAPI documentation
 ```
 
 ## Database Schema
@@ -93,6 +93,7 @@ FastAPI automatically generates interactive API documentation:
 - Better error handling with HTTPException
 - CORS middleware included
 - Persistent data storage
+- Cleaner, more focused codebase
 
 ## Disclaimer
 
